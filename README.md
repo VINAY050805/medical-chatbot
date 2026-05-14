@@ -1,0 +1,1 @@
+# AI Medical Assistant Chatbot — RAG-based Application
