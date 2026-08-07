@@ -1,35 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+    <title>Medical AI Assistant</title>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Markdown -->
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+        href="style.css">
+
+</head>
+
 <body>
-  <div class="container">
 
-    <aside class="sidebar">
-      <h2>Upload PDFs</h2>
+    <!-- ===========================================
+            Mobile Menu
+    ============================================ -->
 
-      <input type="file" id="pdfInput" multiple />
+    <button
+        id="menuBtn"
+        class="menu-btn">
 
-      <button id="uploadBtn">
-        Upload
-      </button>
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+    <!-- ===========================================
+            Sidebar
+    ============================================ -->
+
+    <aside
+        class="sidebar"
+        id="sidebar">
+
+        <div class="logo">
+
+            <img
+                src="assets/medicalAssistant.png"
+                alt="Medical AI">
+
+            <div>
+
+                <h2>
+
+                    Medical AI
+
+                </h2>
+
+                <span>
+
+                    Assistant
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- New Chat -->
+
+        <button
+            class="new-chat-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            <span>
+
+                New Chat
+
+            </span>
+
+        </button>
+
+        <!-- Upload -->
+
+        <div class="upload-section">
+
+            <h3>
+
+                Upload Medical PDFs
+
+            </h3>
+
+            <label
+                for="pdfInput"
+                class="upload-box">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                <h4>
+
+                    Drag & Drop PDFs
+
+                </h4>
+
+                <p>
+
+                    or click to browse
+
+                </p>
+
+            </label>
+
+            <input
+                id="pdfInput"
+                type="file"
+                accept=".pdf"
+                multiple
+                hidden>
+
+        </div>
+
+        <!-- Uploaded Docs -->
+
+        <div class="uploaded-files">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                Uploaded Documents
+
+            </div>
+
+            <ul id="fileList">
+
+            </ul>
+
+        </div>
+
+        <!-- Sidebar Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="clear-chat">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Clear Chat
+
+            </button>
+
+        </div>
+
     </aside>
 
-    <main class="chat-container">
+    <!-- ===========================================
+            Main
+    ============================================ -->
 
-      <div id="chatBox"></div>
+    <main class="main-container">
 
-      <div class="input-area">
-        <input
-          type="text"
-          id="questionInput"
-          placeholder="Ask medical question..."
-        />
+        <!-- Header -->
 
-        <button id="sendBtn">
-          Send
-        </button>
-      </div>
+        <header>
+
+            <div class="header-left">
+
+                <h1>
+
+                    Medical AI Assistant
+
+                </h1>
+
+                <p>
+
+                    Ask questions from your uploaded PDFs
+
+                </p>
+
+            </div>
+
+            <div class="header-right">
+
+                <button
+                    id="themeToggle">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+        <!-- Chat Container -->
+
+        <section
+            id="chatContainer"
+            class="chat-container">
+
+            <!-- Welcome Card -->
+
+            <div class="welcome-card">
+
+                <img
+                    src="assets/medicalAssistant.png"
+                    alt="Assistant">
+
+                <h2>
+
+                    Welcome 👋
+
+                </h2>
+
+                <p>
+
+                    Upload one or more medical PDFs and start asking questions.
+
+                </p>
+
+                <div class="welcome-grid">
+
+                    <div class="welcome-item">
+
+                        <i class="fa-solid fa-file-pdf"></i>
+
+                        Upload PDFs
+
+                    </div>
+
+                    <div class="welcome-item">
+
+                        <i class="fa-solid fa-comments"></i>
+
+                        Ask Questions
+
+                    </div>
+
+                    <div class="welcome-item">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        AI Answers
+
+                    </div>
+
+                    <div class="welcome-item">
+
+                        <i class="fa-solid fa-book"></i>
+
+                        Source References
+
+                    </div>
+
+                </div>
+
+            </div>
+                        <!-- ===========================================
+                    Typing Indicator
+            ============================================ -->
+
+            <div
+                id="typingIndicator"
+                class="typing hidden">
+
+                <div class="typing-avatar">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                </div>
+
+                <div class="typing-content">
+
+                    <span></span>
+
+                    <span></span>
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ===========================================
+                Footer
+        ============================================ -->
+
+        <footer class="chat-footer">
+
+            <div class="input-wrapper">
+
+                <textarea
+
+                    id="questionInput"
+
+                    placeholder="Ask anything about your uploaded medical documents..."
+
+                    rows="1"
+
+                ></textarea>
+
+                <button
+
+                    id="sendBtn"
+
+                    title="Send">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </button>
+
+            </div>
+
+        </footer>
 
     </main>
 
-  </div>
+    <!-- ===========================================
+            Toast Notification
+    ============================================ -->
 
-  <script src="script.js"></script>
+    <div
+
+        id="toast"
+
+        class="toast">
+
+    </div>
+
+    <!-- ===========================================
+            Overlay (Mobile Sidebar)
+    ============================================ -->
+
+    <div
+
+        id="overlay"
+
+        class="overlay">
+
+    </div>
+
+    <!-- ===========================================
+            JavaScript
+    ============================================ -->
+
+    <script src="components/api.js"></script>
+
+    <script src="components/upload.js"></script>
+
+    <script src="components/chat.js"></script>
+
+    <script src="script.js"></script>
+
 </body>
+
+</html>

@@ -8,7 +8,7 @@ A modern AI-powered medical assistant chatbot built using:
 - LangChain
 - Groq LLM
 - Pinecone
-- Google Generative AI Embeddings
+- HuggingFace Embeddings
 - HTML/CSS/JavaScript Frontend
 
 ---
@@ -101,10 +101,14 @@ pip install -r requirements.txt
 Create `.env`
 
 ```env
-GOOGLE_API_KEY=your_key
 GROQ_API_KEY=your_key
 PINECONE_API_KEY=your_key
 PINECONE_INDEX_NAME=medical-chatbot
+PINECONE_CLOUD=aws
+PINECONE_REGION=us-east-1
+CORS_ORIGINS=http://localhost:5500,http://127.0.0.1:5500
+MAX_UPLOAD_FILES=5
+MAX_UPLOAD_BYTES=10485760
 ```
 
 ---
@@ -182,7 +186,7 @@ Body:
 | Frontend | HTML, CSS, JavaScript |
 | Backend | FastAPI |
 | LLM | Groq LLaMA3 |
-| Embeddings | Google Generative AI |
+| Embeddings | HuggingFace BAAI/bge-base-en-v1.5 |
 | Vector DB | Pinecone |
 | Framework | LangChain |
 
